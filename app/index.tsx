@@ -1,12 +1,13 @@
+import { Redirect } from 'expo-router'
 import React from 'react'
-import { View, Text } from 'react-native'
+import { NativeWindStyleSheet } from "nativewind";
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 const Home = () => {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
+  return <Redirect href="/(auth)/welcome"/>
 }
 
 export default Home
