@@ -2,7 +2,7 @@ import CustomButton from "@/components/CustomButton";
 import { onboarding } from "@/constants";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
-import { Text, Pressable, View, Image, Dimensions } from "react-native";
+import { Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
 
@@ -10,7 +10,6 @@ const Onboarding = () => {
   const swiperRef = useRef<Swiper>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastIndex = activeIndex === onboarding.length - 1;
-
   return (
     <SafeAreaView className="flex h-full items-center justify-between bg-white">
       <Pressable
