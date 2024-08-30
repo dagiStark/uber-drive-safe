@@ -6,7 +6,7 @@ import { useLocationStore } from "@/store";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import * as Location from 'expo-location'
+import * as Location from "expo-location";
 import {
   ActivityIndicator,
   FlatList,
@@ -130,20 +130,30 @@ export default function Home() {
   const isLoading = true;
   const [hasPermission, setHasPermission] = useState(false);
 
-  useEffect(()=>{
-    const requestLocation = async()=>{
-      let {status} = await Location.requestForegroundPermissionsAsync();
+  useEffect(() => {
+    const requestLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
 
-      if(status !== 'granted') {
-        setHasPermission(false)
-        return
+      if (status !== "granted") {
+        setHasPermission(false);
+        return;
       }
-    }
 
-    let location = await Location.getCurrentPositionAsync();
-    const address = await Location
-  }, [])
+      let location = await Location.getCurrentPositionAsync();
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords?.latitude!,
+        longitude: location.coords?.longitude,
+      });
 
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        address: `${address[0].name}, ${address[0].region}`,
+      });
+    };
+
+    requestLocation();
+  }, []);
 
   function handleSignOut(event: GestureResponderEvent): void {
     throw new Error("Function not implemented.");
